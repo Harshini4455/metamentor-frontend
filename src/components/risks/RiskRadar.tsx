@@ -31,7 +31,11 @@ export function RiskRadar() {
 
   const handleResolve = async (id: string) => {
     await resolveRisk(id)
-    setResolved(prev => new Set([...prev, id]))
+    setResolved(prev => {
+      const next = new Set(prev)
+      next.add(id)
+      return next
+    })
     setRisks(prev => prev.filter(r => r.id !== id))
     setRiskCount(risks.length - 1)
   }
